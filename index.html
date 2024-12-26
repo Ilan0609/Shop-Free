@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offre de Noël 🎄🎁</title>
+    <title>Boutique de Noël 🎄🎁</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,8 +13,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%); /* Dégradé de couleur de Noël */
+            min-height: 100vh;
+            background: linear-gradient(to right, #ffecd2, #fcb69f); /* Fond dégradé festif */
             color: #333;
         }
         .container {
@@ -23,14 +23,30 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 400px;
+            max-width: 600px;
             width: 100%;
+            margin: 10px;
         }
         h1 {
             color: #d32f2f;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
-        input[type="text"], input[type="email"], select {
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .product {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            background-color: #fff;
+        }
+        input[type="text"], input[type="email"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -53,28 +69,50 @@
 </head>
 <body>
     <div class="container" id="formContainer">
-        <h1>Offre de Noël 🎄🎁</h1>
-        <p>🎅 Obtenez un produit gratuit en échange de votre email et pseudo Discord ! 🎅</p>
-        <form id="offerForm">
-            <select id="product" required>
-                <option value="" disabled selected>🎁 Choisissez un produit 🎁</option>
-                <option value="Produit 1">Crunchyroll Account</option>
-                <option value="Produit 2">FN Account</option>
-                <option value="Produit 3">Steam Account</option>
-            </select>
+        <h1>Boutique de Noël 🎄🎁</h1>
+        <div class="products">
+            <div class="product">
+                <h2>Compte Crunchyroll</h2>
+                <p>Tout vos anime sans pub.</p>
+                <button onclick="selectProduct('Compte Crunchyroll')">Choisir ce produit</button>
+            </div>
+            <div class="product">
+                <h2>Compte Fortnite</h2>
+                <p>Compte Fn avec une chance de gagner des skin rare.</p>
+                <button onclick="selectProduct('Compte Fortnite')">Choisir ce produit</button>
+            </div>
+            <div class="product">
+                <h2>Compte Steam</h2>
+                <p>Compte Steam avec une chance de gagner des jeux chere !</p>
+                <button onclick="selectProduct('Compte Steam')">Choisir ce produit</button>
+            </div>
+            <div class="product">
+                <h2>Unlock all Valo</h2>
+                <p>Une exclu qui reste uniquement aujourd'hui.</p>
+                <button onclick="selectProduct('Unlock all Valo')">Choisir ce produit</button>
+            </div>
+        </div>
+        <form id="giftForm" style="display: none;">
+            <input type="hidden" id="product" required>
             <input type="text" id="discordUsername" placeholder="🎄 Pseudo Discord 🎄" required>
             <input type="email" id="email" placeholder="🎄 Email 🎄" required>
-            <button type="submit">🎁 Obtenir le produit gratuit 🎁</button>
+            <button type="submit">🎁 Recevoir mon cadeau 🎁</button>
         </form>
     </div>
 
     <div class="container" id="confirmationContainer" style="display: none;">
         <h1>Commande en cours 🎅</h1>
-        <p>🎁 Attendez environ 24h pour recevoir votre produit par email ! 🎁</p>
+        <p>🎁 Attendez environ 24h pour recevoir votre cadeau par email ! 🎁</p>
     </div>
 
     <script>
-        document.getElementById('offerForm').addEventListener('submit', function(event) {
+        function selectProduct(productName) {
+            document.getElementById('product').value = productName;
+            document.querySelector('.products').style.display = 'none';
+            document.getElementById('giftForm').style.display = 'block';
+        }
+
+        document.getElementById('giftForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const product = document.getElementById('product').value;
             const discordUsername = document.getElementById('discordUsername').value;
@@ -109,3 +147,4 @@
     </script>
 </body>
 </html>
+
